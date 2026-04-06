@@ -43,7 +43,7 @@ void sample_code(
     float complex *code_sampled,
     int fft_size,
     const receiver_t *recv,
-    int coff
+    double coff
 );
 
 /*

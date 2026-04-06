@@ -103,23 +103,23 @@ void sample_code(
     float complex *code_sampled,
     int fft_size,
     const receiver_t *recv,
-    int coff
+    double coff
 ) {
 
-    double chips_per_sample = FS_GPS / recv->f_adc;
+    double chip_step = FS_GPS / recv->f_adc;
 
     int N = (int)round(recv->f_adc * (CODE_PERIOD_MS / 1000.0));
+
+    double curr_chip = coff;
 
     // Fill buffer with sampled code values
     int i = 0;
     for (; i < N; i++) {
-        // Compute chip position
-        // Rounding to nearest chip corresponds to sample center
-        double chip_pos = (double) i * chips_per_sample + coff;
-        int c_idx = (int) round(chip_pos) % GPS_CODE_LEN;
-
         // Write to I-channel, Q = 0
-        code_sampled[i] = (float) code[c_idx] + I*0.0f;
+        code_sampled[i] = (float) code[(int) curr_chip] + I*0.0f;
+
+        curr_chip += chip_step;
+        if (curr_chip >= GPS_CODE_LEN) curr_chip -= GPS_CODE_LEN;
     }
     for (; i < fft_size; i++) {
         // Zero padding to FFT size

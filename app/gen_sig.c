@@ -102,7 +102,7 @@ void generate_L1CA_signal(
     double current_chip_index[MAX_SATS];
     double phase_step_carrier[MAX_SATS];
     double signal_amplitude[MAX_SATS];
-    double chip_step = FS_GPS * dt;
+    double chip_step = FS_GPS / recv->f_adc;
 
     for (int i = 0; i < num_sats; i++) {
         if (!sats[i].active) continue;
@@ -128,12 +128,13 @@ void generate_L1CA_signal(
         double i_sum = 0.0;
         double q_sum = 0.0;
 
+
         for (int s = 0; s < num_sats; s++) {
             if (!sats[s].active) continue;
 
             int prn_idx = sats[s].prn - 1;
 
-            int idx_chip = (int)round(current_chip_index[prn_idx]);
+            int idx_chip = (int) current_chip_index[prn_idx];
 
             int code_val = prn_codes[prn_idx][idx_chip];
 

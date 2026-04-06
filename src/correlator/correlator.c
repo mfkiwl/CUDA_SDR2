@@ -188,7 +188,7 @@ void corr_parallel_code(
     }
 
     // Get FFT of properly sampled code
-    sample_code(local_code, (float complex *) code_buf, fft_size, recv, 0);
+    sample_code(local_code, (float complex *) code_buf, fft_size, recv, 0.0);
     gen_code_fft(code_buf, code_fft, fft_size);
     fftwf_free(code_buf);
 

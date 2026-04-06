@@ -76,7 +76,7 @@ static void print_result_header(void) {
  */
 static void print_result_row(const satellite_channel_t *result) {
 
-    printf(" %3d | %6s | %10.2f   | %10.2f   | %18.4f\n",
+    printf(" %3d | %6s | %10.2f   | %10.2f   | %17.5f\n",
             result->prn,
             result->active ? "FOUND" : "----",
             result->cn0_db_hz,
