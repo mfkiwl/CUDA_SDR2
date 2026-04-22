@@ -61,7 +61,7 @@ int correlate_block_gpu(
     int n_dop = blk->config.n_dop;
 
     // Zero the accumulator
-    size_t accum_bytes = (size_t)num_sats * n_dop * N * sizeof(double);
+    size_t accum_bytes = (size_t)num_sats * n_dop * N * sizeof(float);
     cudaMemset(blk->d_corr_maps, 0, accum_bytes);
 
     // Calculate grid sizes for batch processing
